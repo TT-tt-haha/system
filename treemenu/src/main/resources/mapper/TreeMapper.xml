@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxt.dao.TreeDao">
+    <resultMap id="treeMap" type="Tree">
+        <result property="t1Id" column="t1_id"></result>
+        <result property="t1Name" column="t1_name"></result>
+        <result property="t1Pid" column="t1_pid"></result>
+
+        <result property="t2Id" column="t2_id"></result>
+        <result property="t2Name" column="t2_name"></result>
+        <result property="t2Pid" column="t2_pid"></result>
+
+        <result property="t3Id" column="t3_id"></result>
+        <result property="t3Name" column="t3_name"></result>
+        <result property="t3Pid" column="t3_pid"></result>
+
+        <result property="t4Id" column="t4_id"></result>
+        <result property="t4Name" column="t4_name"></result>
+        <result property="t4Pid" column="t4_pid"></result>
+
+        <result property="t5Id" column="t5_id"></result>
+        <result property="t5Name" column="t5_name"></result>
+        <result property="t5Pid" column="t5_pid"></result>
+
+        <result property="t6Id" column="t6_id"></result>
+        <result property="t6Name" column="t6_name"></result>
+        <result property="t6Pid" column="t6_pid"></result>
+    </resultMap>
+
+    <resultMap id="nodeMap" type="Node">
+        <result property="t1Id" column="t1_id"></result>
+        <result property="t2Id" column="t2_id"></result>
+        <result property="t3Id" column="t3_id"></result>
+        <result property="t4Id" column="t4_id"></result>
+        <result property="t5Id" column="t5_id"></result>
+        <result property="t6Id" column="t6_id"></result>
+    </resultMap>
+<!--    <select id="getTreeNodes" resultMap="treeMap">-->
+<!--       select * from tree_menu1 union-->
+<!--       select * from tree_menu2 union-->
+<!--       select * from tree_menu3 union-->
+<!--       select * from tree_menu4 union-->
+<!--       select * from tree_menu5 union-->
+<!--       select * from tree_menu6-->
+<!--     </select>-->
+
+    <select id="getAllNodes" resultMap="treeMap">
+        SELECT t1.menu_id as t1_id,t1.menu_name as t1_name,t1.p_id as t1_pid,t2.menu_id as t2_id,t2.menu_name as t2_name,t2.p_id as t2_pid,
+        t3.menu_id as t3_id,t3.menu_name as t3_name,t3.p_id as t3_pid,t4.menu_id as t4_id,t4.menu_name as t4_name,t4.p_id as t4_pid,
+        t5.menu_id as t5_id,t5.menu_name as t5_name,t5.p_id as t5_pid,t6.menu_id as t6_id,t6.menu_name as t6_name,t6.p_id as t6_pid
+        FROM tree_menu1 t1 LEFT OUTER JOIN tree_menu2 t2 ON t1.menu_id=t2.p_id LEFT OUTER JOIN tree_menu3 t3
+        on t2.menu_id=t3.p_id LEFT OUTER JOIN tree_menu4 t4 ON t3.menu_id=t4.p_id LEFT OUTER JOIN tree_menu5 t5
+        ON t4.menu_id=t5.p_id LEFT OUTER JOIN tree_menu6 t6 ON t5.menu_id=t6.p_id
+    </select>
+
+    <select id="findPreName" resultType="String" parameterType="Integer">
+        select menu_name from tree_menu5 where menu_id=#{pId}
+    </select>
+    <insert id="addTree" parameterType="TreeNode" useGeneratedKeys="true" keyProperty="menuId">
+        insert into tree_menu6(menu_name,p_id) values(#{menuName},#{pId})
+     </insert>
+    <select id="getIds" resultMap="nodeMap">
+         SELECT t1.menu_id as t1_id,t2.menu_id as t2_id,t3.menu_id as t3_id,t4.menu_id as t4_id,t5.menu_id as t5_id,t6.menu_id as t6_id
+        FROM tree_menu1 t1 JOIN tree_menu2 t2 ON t1.menu_id=t2.p_id JOIN tree_menu3 t3
+        ON t2.menu_id=t3.p_id  JOIN tree_menu4 t4 ON t3.menu_id=t4.p_id JOIN tree_menu5 t5
+        ON t4.menu_id=t5.p_id  JOIN tree_menu6 t6 ON (t5.menu_id=t6.p_id AND t6.menu_id=#{menuId})
+    </select>
+    <select id="findId">
+        select menu_name from tree_menu6 where menu_name =#{menuName}
+    </select>
+
+</mapper>

@@ -1,0 +1,78 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxt.dao.UserDao">
+    <resultMap id="userMap" type="UserTemp">
+        <result property="uId" column="u_id"></result>
+        <result property="uName" column="u_name"></result>
+        <result property="uMenuName" column="menu_name"></result>
+        <result property="uPid" column="location_id"></result>
+        <result property="uTele" column="u_tele"></result>
+        <result property="uNum" column="u_num"></result>
+    </resultMap>
+    <!--查询所有方法-->
+    <select id="findAllById1" parameterType="Integer" resultMap="userMap">
+        SELECT u.u_id, u.location_id,u.u_name,u.u_num,u.u_tele,u.menu_name FROM
+        (SELECT users.* ,tree_menu6.menu_name
+        FROM users,tree_menu6
+        WHERE users.location_id=tree_menu6.menu_id) as u
+        where u.qingzhou_id = #{id} limit #{pageNow},#{pageSize}
+    </select>
+    <select id="findAllById2" parameterType="Integer" resultMap="userMap">
+        SELECT u.u_id, u.location_id,u.u_name,u.u_num,u.u_tele,u.menu_name FROM
+        (SELECT users.* ,tree_menu6.menu_name
+        FROM users,tree_menu6
+        WHERE users.location_id=tree_menu6.menu_id) as u
+        where u.office_id = #{id} limit #{pageNow},#{pageSize}
+    </select>
+    <select id="findAllById3" parameterType="Integer" resultMap="userMap">
+        SELECT u.u_id, u.location_id,u.u_name,u.u_num,u.u_tele,u.menu_name FROM
+        (SELECT users.* ,tree_menu6.menu_name
+        FROM users,tree_menu6
+        WHERE users.location_id=tree_menu6.menu_id) as u
+        where u.community_id = #{id} limit #{pageNow},#{pageSize}
+    </select>
+    <select id="findAllById4" parameterType="Integer" resultMap="userMap">
+        SELECT u.u_id, u.location_id,u.u_name,u.u_num,u.u_tele,u.menu_name FROM
+        (SELECT users.* ,tree_menu6.menu_name
+        FROM users,tree_menu6
+        WHERE users.location_id=tree_menu6.menu_id) as u
+        where u.building_id = #{id} limit #{pageNow},#{pageSize}
+    </select>
+    <select id="findAllById5" parameterType="Integer" resultMap="userMap">
+        SELECT u.u_id, u.location_id,u.u_name,u.u_num,u.u_tele,u.menu_name FROM
+        (SELECT users.* ,tree_menu6.menu_name
+        FROM users,tree_menu6
+        WHERE users.location_id=tree_menu6.menu_id) as u
+        where u.unit_id = #{id} limit #{pageNow},#{pageSize}
+    </select>
+    <select id="findAllById6" parameterType="Integer" resultMap="userMap">
+        SELECT u.u_id, u.location_id,u.u_name,u.u_num,u.u_tele,u.menu_name FROM
+        (SELECT users.* ,tree_menu6.menu_name
+        FROM users,tree_menu6
+        WHERE users.location_id=tree_menu6.menu_id) as u
+        where u.location_id = #{id} limit #{pageNow},#{pageSize}
+    </select>
+
+    <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="uId">
+        insert into users(u_name,qingzhou_id,office_id,community_id,building_id,unit_id,location_id,u_num,u_tele) values(#{uName},#{qingzhouId},#{officeId},#{communityId},
+        #{buildingId},#{unitId},#{locationId},#{uNum},#{uTele})
+    </insert>
+
+    <update id="update" parameterType="User">
+        update users set u_name=#{uName},qingzhou_id=#{qingzhouId},office_id = #{officeId},community_id=#{communityId},
+        building_id=#{buildingId},unit_id=#{unitId},location_id=#{locationId},u_num=#{uNum},u_tele=#{uTele} where u_id = #{uId}
+    </update>
+
+    <!--分页查询-->
+<!--    <select id="findByPage" resultType="User">-->
+<!--        select u_id,u_name,u_num,u_tele,address-->
+<!--        from users limit #{start},#{rows}-->
+<!--    </select>-->
+    <!--查询总条数-->
+    <select id="findTotals" resultType="Integer">
+        select count(u_id) from users
+    </select>
+
+    <delete id="delete" parameterType="Integer">
+        delete from users where u_id = #{id}
+    </delete>
+</mapper>
