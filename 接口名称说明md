@@ -1,0 +1,8 @@
+# system
+后台管理系统前台代码
+TreeService中的getTree是获得树形菜单的结构，用了两个for循环，第一个for循环取出每一个树节点，第二个for循环是构造树形菜单
+点击不同的菜单显示不同的数据我采用的是level和树形菜单的id，level不是在数据库中添加的字段，是构建实体类的时候添加的一个字段
+TreeDao中的接口Node getIds(Integer id)：获取每一个用户对应六级菜单的id；String findPreName(Integer  id)：获取当前菜单上一级的名称；
+void addTree(TreeNode node);//添加树节点； Integer findId(String menuName,Integer pId)：根据菜单名和pid获取id；
+UserDao中的接口：Integer selectByNum(String nNum);：根据用户的唯一标识获取用户的id
+UserService中的save函数是完成用户添加和更新用户信息的方法，如果用户id为null就执行添加操作，id不为null就执行更新操作。
