@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserTemp {
     private Integer uId;
+    private Integer unitId;
     private Integer uPid;
     private String uName;
     private String uNum;

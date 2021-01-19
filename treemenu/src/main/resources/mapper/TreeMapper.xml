@@ -66,8 +66,8 @@
         ON t2.menu_id=t3.p_id  JOIN tree_menu4 t4 ON t3.menu_id=t4.p_id JOIN tree_menu5 t5
         ON t4.menu_id=t5.p_id  JOIN tree_menu6 t6 ON (t5.menu_id=t6.p_id AND t6.menu_id=#{menuId})
     </select>
-    <select id="findId">
-        select menu_name from tree_menu6 where menu_name =#{menuName}
+    <select id="findId" resultType="Integer">
+        select menu_id from tree_menu6 where menu_name =#{menuName} and p_id=#{pId}
     </select>
 
 </mapper>

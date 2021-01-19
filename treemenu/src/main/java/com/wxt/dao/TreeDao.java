@@ -18,6 +18,6 @@ public interface TreeDao {
     String findPreName(Integer  id);
     void addTree(TreeNode node);//添加树节点
 
-    Integer findId(String menuName);
+    Integer findId(String menuName,Integer pId);
 
 }

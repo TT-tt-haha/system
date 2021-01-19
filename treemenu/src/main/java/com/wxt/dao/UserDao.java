@@ -23,6 +23,8 @@ public interface UserDao {
     //修改用户信息
     void update(User user);
 
+    Integer selectByNum(String nNum);
+
     //分页查询
 //    List<User> findByPage(Integer pageNow,Integer rows );
     //查询总条数

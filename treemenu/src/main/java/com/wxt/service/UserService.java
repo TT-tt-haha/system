@@ -41,38 +41,71 @@ public class UserService {
         return userDao.findAllById6(id,pageNow,rows);
     }
 
-    public void save(Integer id,String uName, String uNum, String uTele, TreeNode node, String menuName){
+    public void save(Integer pId,String uName, String uNum, String uTele, TreeNode node, String menuName){
         User user = new User();
-        System.out.println("id===="+user.getUId());
-        user.setUName(uName);
-        user.setUNum(uNum);
-        user.setUTele(uTele);
-        String preName = treeDao.findPreName(node.getPId());
+//        System.out.println("uNum====="+uNum);
+//        System.out.println("id===="+userDao.selectByNum(uNum));
+        String preName = treeDao.findPreName(pId);
+//        System.out.println("preName===="+preName);
         node.setMenuName(menuName);
-        System.out.println(preName);
         node.setPreName(preName);
         node.setLevel(6);
-        treeDao.addTree(node);
-        System.out.println(node);
-//        Integer id = treeDao.findId(menu);
-        System.out.println(node.getMenuId());
-        Node ids = treeDao.getIds(node.getMenuId());
-//        List<Integer> ids = treeDao.getIds(node.getMenuId());
-        System.out.println(ids);
-        user.setQingzhouId(ids.getT1Id());
-        user.setOfficeId(ids.getT2Id());
-        user.setCommunityId(ids.getT3Id());
-        user.setBuildingId(ids.getT4Id());
-        user.setUnitId(ids.getT5Id());
-        user.setLocationId(ids.getT6Id());
-        if(id==null){
+        if(userDao.selectByNum(uNum)==null){
+            System.out.println("执行添加！");
+            user.setUName(uName);
+            user.setUNum(uNum);
+            user.setUTele(uTele);
+//            String preName = treeDao.findPreName(node.getPId());
+//            node.setMenuName(menuName);
+////        System.out.println(preName);
+//            node.setPreName(preName);
+//            node.setLevel(6);
+            treeDao.addTree(node);
+            Node ids = treeDao.getIds(node.getMenuId());
+            user.setQingzhouId(ids.getT1Id());
+            user.setOfficeId(ids.getT2Id());
+            user.setCommunityId(ids.getT3Id());
+            user.setBuildingId(ids.getT4Id());
+            user.setUnitId(ids.getT5Id());
+            user.setLocationId(ids.getT6Id());
             userDao.save(user);
         }else {
-            System.out.println("执行更新");
+            System.out.println("执行更新！");
+            user.setUName(uName);
+            user.setUNum(uNum);
+            user.setUTele(uTele);
+            System.out.println("pId2===="+pId);
+            System.out.println("menuName===="+menuName);
+            Integer id = treeDao.findId(menuName, pId);
+            System.out.println("menuId===="+id);
+            Node ids = treeDao.getIds(id);
+            user.setUId(userDao.selectByNum(uNum));
+            user.setQingzhouId(ids.getT1Id());
+            user.setOfficeId(ids.getT2Id());
+            user.setCommunityId(ids.getT3Id());
+            user.setBuildingId(ids.getT4Id());
+            user.setUnitId(ids.getT5Id());
+            user.setLocationId(ids.getT6Id());
             userDao.update(user);
+            System.out.println("uid===="+user.getUId());
+            System.out.println("tele===="+user.getUTele());
         }
 
+
+
     }
+
+//    public void update(User user,TreeNode node){
+//        Node ids = treeDao.getIds(node.getMenuId());
+//        user.setQingzhouId(ids.getT1Id());
+//        user.setOfficeId(ids.getT2Id());
+//        user.setCommunityId(ids.getT3Id());
+//        user.setBuildingId(ids.getT4Id());
+//        user.setUnitId(ids.getT5Id());
+//        user.setLocationId(ids.getT6Id());
+//        userDao.update(user);
+//
+//    }
 
     public void delete(Integer id) {
         userDao.delete(id);

@@ -63,7 +63,7 @@ public class TreeService {
                 map.put(menu.getT6Id()+treeNode6.getMenuName(),treeNode6);
             }
         }
-        System.out.println(map);
+//        System.out.println(map);
         for (Tree menu : nodes) {
 //
             if(menu.getT1Id()!=null&&!map2.containsKey(menu.getT1Id()+menu.getT1Name())){
@@ -78,14 +78,14 @@ public class TreeService {
                 System.out.println("============="+menu.getT2Pid());
                 treeNode2 = new TreeNode(menu.getT2Id(),menu.getT2Name(),menu.getT2Pid(),treeNode1.getMenuName(),2);
                 TreeNode parent = map.get(treeNode2.getPId()+treeNode2.getPreName());
-                System.out.println("treeNode2:"+treeNode2);
-                System.out.println("编号"+treeNode2.getPId()+treeNode2.getPreName());
+//                System.out.println("treeNode2:"+treeNode2);
+//                System.out.println("编号"+treeNode2.getPId()+treeNode2.getPreName());
                 map2.put(menu.getT2Id()+treeNode2.getMenuName(),treeNode2);
                 if(parent!=null){
                     parent.getChildren().add(treeNode2);
                 }
-                System.out.println("treeNode2:"+treeNode2);
-                System.out.println("parent2:"+parent);
+//                System.out.println("treeNode2:"+treeNode2);
+//                System.out.println("parent2:"+parent);
             }
             if(menu.getT3Id()!=null&&!map2.containsKey(menu.getT3Id()+menu.getT3Name())){
                 treeNode3 = new TreeNode(menu.getT3Id(),menu.getT3Name(),menu.getT3Pid(),treeNode2.getMenuName(),3);
@@ -95,7 +95,7 @@ public class TreeService {
 //                    parent.getChildren().add(treeNode3);
                     treeNode2.getChildren().add(treeNode3);
                 }
-                System.out.println("parent3:"+parent);
+//                System.out.println("parent3:"+parent);
             }
 
             if(menu.getT4Id()!=null&&!map2.containsKey(menu.getT4Id()+menu.getT4Name())){
@@ -106,7 +106,7 @@ public class TreeService {
 //                    parent.getChildren().add(treeNode4);
                     treeNode3.getChildren().add(treeNode4);
                 }
-                System.out.println("parent4:"+parent);
+//                System.out.println("parent4:"+parent);
             }
 
             if(menu.getT5Id()!=null&&!map2.containsKey(menu.getT5Id()+menu.getT5Name())){
@@ -129,9 +129,9 @@ public class TreeService {
 //                    parent.getChildren().add(treeNode6);
                     treeNode5.getChildren().add(treeNode6);
                 }
-                System.out.println("parent6:"+parent);
+//                System.out.println("parent6:"+parent);
             }
-            System.out.println("parents:"+parents);
+//            System.out.println("parents:"+parents);
         }
 
         return parents;

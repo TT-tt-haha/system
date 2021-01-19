@@ -2,10 +2,7 @@ package com.wxt;
 
 import com.wxt.dao.TreeDao;
 import com.wxt.dao.UserDao;
-import com.wxt.entity.Node;
-import com.wxt.entity.Tree;
-import com.wxt.entity.TreeNode;
-import com.wxt.entity.UserTemp;
+import com.wxt.entity.*;
 import com.wxt.service.TreeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +25,9 @@ class TreemenuApplicationTests {
 
     @Test
     void contextLoads() {
-        List<UserTemp> all = userDao.findAllById1(1001, 1, 4);
-        for (UserTemp temp : all) {
-            System.out.println(temp);
-        }
+        Integer id = treeDao.findId("东1箱低1表室6", 1003);
+        System.out.println(id);
+
 
 //        List<Tree> nodes = treeDao.getAllNodes();
 //        for (Tree node : nodes) {

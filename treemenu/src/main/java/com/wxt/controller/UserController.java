@@ -58,14 +58,14 @@ public class UserController {
 
     @RequestMapping("/user/save/{pId}")
     @CrossOrigin
-    public Result save(@RequestParam("uId") Integer uId,@RequestParam("uName") String uName,@RequestParam("uNum") String uNum,@RequestParam("uTele") String uTele,
+    public Result save(@PathVariable("pId") Integer pId,@RequestParam("uName") String uName,@RequestParam("uNum") String uNum,@RequestParam("uTele") String uTele,
                        TreeNode node,@RequestParam("menuName") String menuName){
-        System.out.println("uId:"+uId);
+//        System.out.println("uId:"+uId);
         User user = new User();
-        System.out.println(node.getPId());
+//        System.out.println(node.getPId());
         Result result = new Result();
         try {
-            userService.save(uId,uName,uNum,uTele,node,menuName);
+            userService.save(pId,uName,uNum,uTele,node,menuName);
             result.setMsg("保存用户成功！");
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,6 +74,13 @@ public class UserController {
         }
         return result;
     }
+//    @RequestMapping("/update")
+
+//    @RequestMapping("/save")
+//    @CrossOrigin
+//    public Result saveuser(User user,Tr)
+
+
 
     @RequestMapping("/user/delete")
     @CrossOrigin
